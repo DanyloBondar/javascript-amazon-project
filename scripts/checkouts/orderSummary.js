@@ -1,31 +1,19 @@
 import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 
 export function renderOrderSummary() {
   let cartSummaryHTML;
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
-    let matchingProduct;
-
-    products.forEach((product) => {
-      if (product.id === productId) {
-        matchingProduct = product;
-      }
-    });
+    const matchingProduct = getProduct(productId);
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
-    let deliveryOption;
-    
-    deliveryOptions.forEach((option) => {
-      if (deliveryOptionId === option.id) {
-      deliveryOption = option;
-    }
-    });
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(
@@ -36,7 +24,7 @@ export function renderOrderSummary() {
 
     cartSummaryHTML +=
       `
-    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
       <div class="delivery-date">
         Delivery date: ${dateString}
       </div>
@@ -175,6 +163,36 @@ export function renderOrderSummary() {
       updateCartqQuantity();
     });
   });
+
+  document.querySelectorAll('.cart-item-container').forEach((link) => {
+    link.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') { 
+      const productId = link.dataset.productId;
+
+      
+
+      const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+
+      const newQuantity = Number(quantityInput.value);
+      if (newQuantity < 0 || newQuantity >= 1000) 
+      {
+        alert('Quantity must be at least 0 and less than 1000');
+        return;
+      }
+    
+      updateQuantity(productId, newQuantity);
+
+      const container = document.querySelector(`.js-cart-item-container-${productId}`);
+      container.classList.remove('is-editing-quantity');
+
+      const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+      quantityLabel.innerHTML = newQuantity;
+
+      updateCartqQuantity();
+    }
+    });
+  });
+
 
   document.querySelectorAll('.js-delivery-option')
   .forEach((element) => {
