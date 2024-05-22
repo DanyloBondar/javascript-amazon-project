@@ -162,6 +162,7 @@ export function renderOrderSummary() {
       quantityLabel.innerHTML = newQuantity;
 
       updateCartqQuantity();
+      renderPaymantSummary();
     });
   });
 
@@ -190,6 +191,7 @@ export function renderOrderSummary() {
       quantityLabel.innerHTML = newQuantity;
 
       updateCartqQuantity();
+      renderPaymantSummary();
     }
     });
   });
@@ -201,7 +203,7 @@ export function renderOrderSummary() {
       const {productId, deliveryOptionId} = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
-      renderPaymantSummary
+      renderPaymantSummary();
     });
   });
 }
