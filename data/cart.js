@@ -1,4 +1,4 @@
-import { validDeliveryOptionId } from "./deliveryOptions";
+import { validDeliveryOptionId } from "./deliveryOptions.js";
 
 export let cart;
 
