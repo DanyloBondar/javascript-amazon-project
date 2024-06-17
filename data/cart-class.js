@@ -1,5 +1,5 @@
 import { validDeliveryOptionId } from "./deliveryOptions.js";
-class Cart {
+export class Cart {
   cartItems;
   #localStorageKey;
 
@@ -68,7 +68,7 @@ class Cart {
     this.saveToStorage();
   }
 
-  calculateCartQuantity() {
+   calculateCartQuantity() {
     let cartQuantity = 0;
     this.cartItems.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
@@ -113,7 +113,7 @@ class Cart {
   }
 }
 
-const cart = new Cart('cart-oop');
+export const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
 
