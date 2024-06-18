@@ -5,6 +5,7 @@ import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from '../..
 import { renderPaymantSummary } from './paymentSummary.js';
 import { renderCheckoutHeader } from './checkoutHeader.js';
 
+
 export function renderOrderSummary() {
   let cartSummaryHTML ='';
   cart.cartItems.forEach((cartItem) => {
@@ -170,7 +171,7 @@ export function renderOrderSummary() {
         return;
       }
     
-      updateQuantity(productId, newQuantity);
+      cart.updateQuantity(productId, newQuantity);
 
       renderPaymantSummary();
       renderCheckoutHeader();
