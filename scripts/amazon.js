@@ -1,8 +1,8 @@
-import { products, loadProducts } from '../data/products.js';
+import { products, loadProductsFetch } from '../data/products.js';
 import { cart } from '../data/cart-class.js';
 import { Cart } from '../data/cart-class.js';
 
-loadProducts(renderProductsGrid);
+loadProductsFetch().then(renderProductsGrid);
 
 function renderProductsGrid() {
   let productsHTML = '';
