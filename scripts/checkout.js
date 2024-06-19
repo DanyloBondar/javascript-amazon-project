@@ -8,6 +8,7 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 
 async function loadPage() {
+  
   await loadProductsFetch();
   await loadCart();
 
